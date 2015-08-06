@@ -80,3 +80,32 @@ Game.model = {
         return result;
     }
 };
+
+Game.view = {
+    // initialisation
+    init: function(table) {
+        var size = 12;
+        
+        for (var row = 0; row < size; row++) {
+            var tablerow = document.createElement('tr');
+
+            for (var col = 0; col < size; col++) {
+                var cell = document.createElement('td');
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+
+                cell.appendChild(checkbox);
+                tablerow.appendChild(cell);
+            }
+
+            table.appendChild(tablerow);
+        }        
+    }
+    
+    // start life cycle - click
+    
+    // stop life cycle - click
+    
+    // clear grid - click
+    
+};
