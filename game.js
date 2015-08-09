@@ -87,6 +87,11 @@ Game.view = {
         var me = this;
         var size = 12;
         var table = doc.querySelector('#grid');
+        me.buttons = {
+            start: doc.querySelector('#start'),
+            stop: doc.querySelector('#stop'),
+            clear: doc.querySelector('#clear')
+        };
         
         if (table !== null) {
             for (var row = 0; row < size; row++) {
@@ -104,21 +109,24 @@ Game.view = {
                 table.appendChild(tablerow);
             }
 
-            var startButton = doc.querySelector('#start');
-            startButton.addEventListener('click', function() {
+            me.buttons.stop.hidden = true;
+            
+            me.buttons.start.addEventListener('click', function() {
+                me.buttons.start.hidden = true;
+                me.buttons.stop.hidden = false;
                 changeTableToNextState();
                 me.timer = setInterval(function() {
                     changeTableToNextState();
                 }, 1000);
             });
 
-            var stopButton = doc.querySelector('#stop');
-            stopButton.addEventListener('click', function() {
+            me.buttons.stop.addEventListener('click', function() {
+                me.buttons.start.hidden = false;
+                me.buttons.stop.hidden = true;
                 clearInterval(me.timer);
             });
             
-            var clearButton = doc.querySelector('#clear');
-            clearButton.addEventListener('click', function() {
+            me.buttons.clear.addEventListener('click', function() {
                 for (var row = 0; row < table.rows.length; row++) {
                     for (var col = 0; col < table.rows[row].cells.length; col++) {
                         table.rows[row].cells[col].childNodes[0].checked = false;                            
