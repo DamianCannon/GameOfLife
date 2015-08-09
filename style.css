@@ -13,7 +13,7 @@ h1 {
 }
 
 h2 {
-    margin: .5em 0 1em;
+    margin: 1em 0 0.5em;
 }
 
 #grid {
@@ -42,7 +42,7 @@ h2 {
 
 #grid input[type='checkbox'] {
     background: white;
-    animation: death 500ms;
+    animation: death 250ms;
 }
 
 @keyframes birth {
@@ -52,8 +52,8 @@ h2 {
 }
 
 @keyframes death {
-    50% {
-        background: red;
+    0% {
+        background: rgba(184,0,0,.5);
     }
 }
 

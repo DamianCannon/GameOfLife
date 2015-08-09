@@ -237,10 +237,4 @@ describe('Life game model', function() {
             expect(outputGrid[4][4]).toBe(false);
         });
     });
-    
-    it('should start game', function() {
-       
-        
-        // expect 
-    });
 });

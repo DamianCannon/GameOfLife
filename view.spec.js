@@ -78,17 +78,17 @@ describe('Life game view', function() {
         expect(getCountOfSelectedCells(grid)).toBe(0);
     });
     
-//    it('should call newStateForGrid on model when start button clicked', function() {
-//        var view = Game.view;
-//        var doc = initialiseDocument();
-//        view.init(doc);
-//
-//        spyOn(Game.model, 'newStateForGrid');
-//        var button = doc.querySelector('#start');
-//        button.click();
-//        
-//        expect(Game.model.newStateForGrid).toHaveBeenCalled();
-//    });
+    it('should call newStateForGrid on model when start button clicked', function() {
+        var view = Game.view;
+        var doc = initialiseDocument();
+        view.init(doc);
+
+        spyOn(Game.model, 'newStateForGrid').and.callThrough();
+        var button = doc.querySelector('#start');
+        button.click();
+        
+        expect(Game.model.newStateForGrid).toHaveBeenCalled();
+    });
 
     it('should move table on to next state when start button clicked', function() {
         var view = Game.view;
