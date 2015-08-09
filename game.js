@@ -83,29 +83,75 @@ Game.model = {
 
 Game.view = {
     // initialisation
-    init: function(table) {
+    init: function(doc) {
+        var me = this;
         var size = 12;
+        var table = doc.querySelector('#grid');
         
-        for (var row = 0; row < size; row++) {
-            var tablerow = document.createElement('tr');
+        if (table !== null) {
+            for (var row = 0; row < size; row++) {
+                var tablerow = document.createElement('tr');
 
-            for (var col = 0; col < size; col++) {
-                var cell = document.createElement('td');
-                var checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
+                for (var col = 0; col < size; col++) {
+                    var cell = document.createElement('td');
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
 
-                cell.appendChild(checkbox);
-                tablerow.appendChild(cell);
+                    cell.appendChild(checkbox);
+                    tablerow.appendChild(cell);
+                }
+
+                table.appendChild(tablerow);
             }
 
-            table.appendChild(tablerow);
-        }        
+            var startButton = doc.querySelector('#start');
+            startButton.addEventListener('click', function() {
+                changeTableToNextState();
+                me.timer = setInterval(function() {
+                    changeTableToNextState();
+                }, 1000);
+            });
+
+            var stopButton = doc.querySelector('#stop');
+            stopButton.addEventListener('click', function() {
+                clearInterval(me.timer);
+            });
+            
+            var clearButton = doc.querySelector('#clear');
+            clearButton.addEventListener('click', function() {
+                for (var row = 0; row < table.rows.length; row++) {
+                    for (var col = 0; col < table.rows[row].cells.length; col++) {
+                        table.rows[row].cells[col].childNodes[0].checked = false;                            
+                    }
+                }
+            });
+        }
+        
+        function changeTableToNextState() {
+            var grid = [];
+            for (var row = 0; row < table.rows.length; row++) {
+                var newRow = [];
+                for (var col = 0; col < table.rows[row].cells.length; col++) {
+                    var cell = table.rows[row].cells[col];
+                    var state = cell.childNodes[0].checked;
+                    newRow.push(state);
+                }
+                grid.push(newRow);
+            }
+
+            var result = Game.model.newStateForGrid(grid);
+
+            for (var trow = 0; trow < result.length; trow++) {
+                for (var tcol = 0; tcol < result[trow].length; tcol++) {
+                    if (result[trow][tcol]) {
+                        table.rows[trow].cells[tcol].childNodes[0].checked = true;
+                    } else {
+                        table.rows[trow].cells[tcol].childNodes[0].checked = false;                            
+                    }
+                }
+            }
+        }
     }
-    
-    // start life cycle - click
-    
-    // stop life cycle - click
-    
-    // clear grid - click
-    
 };
+
+Game.view.init(window.document);
