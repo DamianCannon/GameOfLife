@@ -15,26 +15,25 @@ if (typeof Game === 'undefined') {
 }
 
 Game.model = {
-    countNeighbours: function(cell) {
-        
-        var liveNeighbours = cell.neighbours.filter(function(neighbour) {
+    countNeighbours: function (cell) {
+
+        var liveNeighbours = cell.neighbours.filter(function (neighbour) {
             if (neighbour) {
                 return neighbour;
             }
         });
-        
+
         return liveNeighbours.length;
     },
-    
-    newStateForCell: function(cell) {
+
+    newStateForCell: function (cell) {
         var countOfLiveNeighbours = this.countNeighbours(cell);
-        
-        switch(countOfLiveNeighbours) {
+
+        switch (countOfLiveNeighbours) {
             case 2:
                 if (cell.state) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             case 3:
@@ -43,10 +42,10 @@ Game.model = {
                 return false;
         }
     },
-    
-    newStateForGrid: function(grid) {
+
+    newStateForGrid: function (grid) {
         var result = [];
-        
+
         for (var row = 0; row < grid.length; row++) {
             var newRow = [];
 
@@ -55,7 +54,7 @@ Game.model = {
                 var currentCell = {};
                 currentCell.state = grid[row][col];
                 currentCell.neighbours = [];
-                
+
                 // get neighbours for cell in array
                 for (var innerRow = row - 1; innerRow <= row + 1; innerRow++) {
                     if (grid[innerRow] !== undefined) {
@@ -66,24 +65,24 @@ Game.model = {
                         }
                     }
                 }
-                
+
                 // get new state for cell
                 var newState = this.newStateForCell(currentCell);
-                
+
                 // set state of cell in output
                 newRow.push(newState);
             }
-            
+
             result.push(newRow);
         }
-        
+
         return result;
     }
 };
 
 Game.view = {
     // initialisation
-    init: function(doc) {
+    init: function (doc) {
         var me = this;
         var size = 12;
         var table = doc.querySelector('#grid');
@@ -92,7 +91,7 @@ Game.view = {
             stop: doc.querySelector('#stop'),
             clear: doc.querySelector('#clear')
         };
-        
+
         if (table !== null) {
             for (var row = 0; row < size; row++) {
                 var tablerow = document.createElement('tr');
@@ -109,32 +108,34 @@ Game.view = {
                 table.appendChild(tablerow);
             }
 
+
+
             me.buttons.stop.hidden = true;
-            
-            me.buttons.start.addEventListener('click', function() {
+
+            me.buttons.start.addEventListener('click', function () {
                 me.buttons.start.hidden = true;
                 me.buttons.stop.hidden = false;
                 changeTableToNextState();
-                me.timer = setInterval(function() {
+                me.timer = setInterval(function () {
                     changeTableToNextState();
                 }, 1000);
             });
 
-            me.buttons.stop.addEventListener('click', function() {
+            me.buttons.stop.addEventListener('click', function () {
                 me.buttons.start.hidden = false;
                 me.buttons.stop.hidden = true;
                 clearInterval(me.timer);
             });
-            
-            me.buttons.clear.addEventListener('click', function() {
+
+            me.buttons.clear.addEventListener('click', function () {
                 for (var row = 0; row < table.rows.length; row++) {
                     for (var col = 0; col < table.rows[row].cells.length; col++) {
-                        table.rows[row].cells[col].childNodes[0].checked = false;                            
+                        table.rows[row].cells[col].childNodes[0].checked = false;
                     }
                 }
             });
         }
-        
+
         function changeTableToNextState() {
             var grid = [];
             for (var row = 0; row < table.rows.length; row++) {
@@ -154,7 +155,7 @@ Game.view = {
                     if (result[trow][tcol]) {
                         table.rows[trow].cells[tcol].childNodes[0].checked = true;
                     } else {
-                        table.rows[trow].cells[tcol].childNodes[0].checked = false;                            
+                        table.rows[trow].cells[tcol].childNodes[0].checked = false;
                     }
                 }
             }

@@ -1,113 +1,162 @@
 /* jshint -W117 */
-describe('Life game model', function() {
+describe('Life game model', function () {
     var model = Game.model;
 
-    beforeEach(function() {
-    });
+    beforeEach(function () {});
 
-    it('should exist', function() {
+    it('should exist', function () {
         expect(Game.model).toBeDefined();
     });
 
-    describe('should count', function() {
-        it('zero when cell has no live neighbours', function() {
-            var cell = {neighbours: []};
+    describe('should count', function () {
+        it('zero when cell has no live neighbours', function () {
+            var cell = {
+                neighbours: []
+            };
             expect(model.countNeighbours(cell)).toBe(0);
         });
 
-        it('one when cell has one live neighbour', function() {
-            var cell = {neighbours: [true]};
+        it('one when cell has one live neighbour', function () {
+            var cell = {
+                neighbours: [true]
+            };
             expect(model.countNeighbours(cell)).toBe(1);
         });
 
-        it('two when cell has two live neighbours', function() {
-            var cell = {neighbours: [true, true]};
+        it('two when cell has two live neighbours', function () {
+            var cell = {
+                neighbours: [true, true]
+            };
             expect(model.countNeighbours(cell)).toBe(2);
         });
 
-        it('two when cell has one dead and two live neighbours', function() {
-            var cell = {neighbours: [true, false, true]};
+        it('two when cell has one dead and two live neighbours', function () {
+            var cell = {
+                neighbours: [true, false, true]
+            };
             expect(model.countNeighbours(cell)).toBe(2);
         });
 
-        it('three when cell has four dead and three live neighbours', function() {
-            var cell = {neighbours: [false, true, false, true, false, true, false]};
+        it('three when cell has four dead and three live neighbours', function () {
+            var cell = {
+                neighbours: [false, true, false, true, false, true, false]
+            };
             expect(model.countNeighbours(cell)).toBe(3);
         });
 
-        it('eight when cell has eight live neighbours', function() {
-            var cell = {neighbours: [true, true, true, true, true, true, true, true]};
+        it('eight when cell has eight live neighbours', function () {
+            var cell = {
+                neighbours: [true, true, true, true, true, true, true, true]
+            };
             expect(model.countNeighbours(cell)).toBe(8);
         });
 
-        it('zero when cell has eight dead neighbours', function() {
-            var cell = {neighbours: [false, false, false, false, false, false, false, false]};
+        it('zero when cell has eight dead neighbours', function () {
+            var cell = {
+                neighbours: [false, false, false, false, false, false, false, false]
+            };
             expect(model.countNeighbours(cell)).toBe(0);
         });
     });
-    
-    describe('should return', function() {
-        it('dead state when live cell has no live neighbours', function() {
-            var cell = {state: true, neighbours: []};
+
+    describe('should return', function () {
+        it('dead state when live cell has no live neighbours', function () {
+            var cell = {
+                state: true,
+                neighbours: []
+            };
             expect(model.newStateForCell(cell)).toBe(false);
         });
 
-        it('dead state when live cell has one live neighbour', function() {
-            var cell = {state: true, neighbours: [true]};
+        it('dead state when live cell has one live neighbour', function () {
+            var cell = {
+                state: true,
+                neighbours: [true]
+            };
             expect(model.newStateForCell(cell)).toBe(false);
         });
 
-        it('live state when live cell has two live neighbours', function() {
-            var cell = {state: true, neighbours: [true, true]};
+        it('live state when live cell has two live neighbours', function () {
+            var cell = {
+                state: true,
+                neighbours: [true, true]
+            };
             expect(model.newStateForCell(cell)).toBe(true);
         });
 
-        it('live state when live cell has three live neighbours', function() {
-            var cell = {state: true, neighbours: [true, true, true]};
+        it('live state when live cell has three live neighbours', function () {
+            var cell = {
+                state: true,
+                neighbours: [true, true, true]
+            };
             expect(model.newStateForCell(cell)).toBe(true);
         });
 
-        it('dead state when live cell has four live neighbours', function() {
-            var cell = {state: true, neighbours: [true, true, true, true]};
+        it('dead state when live cell has four live neighbours', function () {
+            var cell = {
+                state: true,
+                neighbours: [true, true, true, true]
+            };
             expect(model.newStateForCell(cell)).toBe(false);
         });
 
-        it('live state when live cell has four dead and three live neighbours', function()               {
-            var cell = {state: true, neighbours: [false, true, false, true, false, true, false]};
+        it('live state when live cell has four dead and three live neighbours', function () {
+            var cell = {
+                state: true,
+                neighbours: [false, true, false, true, false, true, false]
+            };
             expect(model.newStateForCell(cell)).toBe(true);
         });
 
-        it('dead state when live cell has eight live neighbours', function() {
-            var cell = {state: true, neighbours: [true, true, true, true, true, true, true, true]};
+        it('dead state when live cell has eight live neighbours', function () {
+            var cell = {
+                state: true,
+                neighbours: [true, true, true, true, true, true, true, true]
+            };
             expect(model.newStateForCell(cell)).toBe(false);
         });
 
-        it('dead state when live cell has eight dead neighbours', function() {
-            var cell = {state: true, neighbours: [false, false, false, false, false, false, false, false]};
+        it('dead state when live cell has eight dead neighbours', function () {
+            var cell = {
+                state: true,
+                neighbours: [false, false, false, false, false, false, false, false]
+            };
             expect(model.newStateForCell(cell)).toBe(false);
         });
 
-        it('dead state when dead cell has no live neighbours', function() {
-            var cell = {state: false, neighbours: []};
+        it('dead state when dead cell has no live neighbours', function () {
+            var cell = {
+                state: false,
+                neighbours: []
+            };
             expect(model.newStateForCell(cell)).toBe(false);
         });
 
-        it('dead state when dead cell has one live neighbour', function() {
-            var cell = {state: false, neighbours: [true]};
+        it('dead state when dead cell has one live neighbour', function () {
+            var cell = {
+                state: false,
+                neighbours: [true]
+            };
             expect(model.newStateForCell(cell)).toBe(false);
         });
 
-        it('dead state when dead cell has two live neighbours', function() {
-            var cell = {state: false, neighbours: [true, true]};
+        it('dead state when dead cell has two live neighbours', function () {
+            var cell = {
+                state: false,
+                neighbours: [true, true]
+            };
             expect(model.newStateForCell(cell)).toBe(false);
         });
 
-        it('live state when dead cell has three live neighbours', function() {
-            var cell = {state: false, neighbours: [true, true, true]};
+        it('live state when dead cell has three live neighbours', function () {
+            var cell = {
+                state: false,
+                neighbours: [true, true, true]
+            };
             expect(model.newStateForCell(cell)).toBe(true);
         });
 
-        it('same pattern when given a block still-life', function() {
+        it('same pattern when given a block still-life', function () {
             var inputGrid = [
                [false, false, false, false],
                [false, true, true, false],
@@ -139,10 +188,10 @@ describe('Life game model', function() {
             expect(outputGrid[3][0]).toBe(false);
             expect(outputGrid[3][1]).toBe(false);
             expect(outputGrid[3][2]).toBe(false);
-            expect(outputGrid[3][3]).toBe(false);        
+            expect(outputGrid[3][3]).toBe(false);
         });
 
-        it('next pattern when given a blinker oscillator', function() {
+        it('next pattern when given a blinker oscillator', function () {
             var inputGrid = [
                [false, false, false, false, false],
                [false, false, false, false, false],
@@ -189,7 +238,7 @@ describe('Life game model', function() {
             expect(outputGrid[4][4]).toBe(false);
         });
 
-        it('to original pattern when oscillating a blinker twice', function() {
+        it('to original pattern when oscillating a blinker twice', function () {
             var inputGrid = [
                [false, false, false, false, false],
                [false, false, false, false, false],

@@ -1,43 +1,43 @@
 /* jshint -W117 */
-describe('Life game view', function() {    
+describe('Life game view', function () {
     function initialiseDocument() {
         var doc;
-        
+
         //<table id='grid'></table>
         var table = document.createElement('table');
         table.setAttribute('id', 'grid');
-        
+
         //<button id='start'>Start</button>
         var start = document.createElement('button');
         start.setAttribute('id', 'start');
-        
+
         //<button id='stop'>Stop</button>
         var stop = document.createElement('button');
         stop.setAttribute('id', 'stop');
-        
+
         //<button id='clear'>Clear</button>
         var clear = document.createElement('button');
         clear.setAttribute('id', 'clear');
-        
+
         doc = document.createDocumentFragment();
         doc.appendChild(table);
         doc.appendChild(start);
         doc.appendChild(stop);
         doc.appendChild(clear);
-        
+
         return doc;
     }
 
     function getCountOfSelectedCells(grid) {
         var count = 0;
-        grid.map(function(row) {
-            return row.map(function(cell) {
+        grid.map(function (row) {
+            return row.map(function (cell) {
                 count += +cell;
             });
         });
         return count;
     }
-    
+
     function convertTableIntoArray(table) {
         var grid = [];
         for (var row = 0; row < table.rows.length; row++) {
@@ -48,37 +48,37 @@ describe('Life game view', function() {
                 newRow.push(state);
             }
             grid.push(newRow);
-        }        
+        }
         return grid;
     }
-    
-    it('should exist', function() {
+
+    it('should exist', function () {
         expect(Game.view).toBeDefined();
     });
-    
-    it('should initialise a table with 12 rows and 12 columns', function() {
+
+    it('should initialise a table with 12 rows and 12 columns', function () {
         var view = Game.view;
         var doc = initialiseDocument();
         view.init(doc);
-                
+
         var table = doc.querySelector('#grid');
-        
+
         expect(table.rows.length).toBe(12);
         expect(table.rows[0].cells.length).toBe(12);
     });
 
-    it('should have no selected cells when initialised', function() {
+    it('should have no selected cells when initialised', function () {
         var view = Game.view;
         var doc = initialiseDocument();
         view.init(doc);
-                
+
         var table = doc.querySelector('#grid');
         var grid = convertTableIntoArray(table);
-        
+
         expect(getCountOfSelectedCells(grid)).toBe(0);
     });
-    
-    it('should call newStateForGrid on model when start button clicked', function() {
+
+    it('should call newStateForGrid on model when start button clicked', function () {
         var view = Game.view;
         var doc = initialiseDocument();
         view.init(doc);
@@ -86,11 +86,11 @@ describe('Life game view', function() {
         spyOn(Game.model, 'newStateForGrid').and.callThrough();
         var button = doc.querySelector('#start');
         button.click();
-        
+
         expect(Game.model.newStateForGrid).toHaveBeenCalled();
     });
 
-    it('should move table on to next state when start button clicked', function() {
+    it('should move table on to next state when start button clicked', function () {
         var view = Game.view;
         var doc = initialiseDocument();
         view.init(doc);
@@ -110,7 +110,7 @@ describe('Life game view', function() {
         expect(table.rows[5].cells[3].children[0].checked).toBeFalsy();
     });
 
-    it('should clear table when clear button clicked', function() {
+    it('should clear table when clear button clicked', function () {
         var view = Game.view;
         var doc = initialiseDocument();
         view.init(doc);
@@ -126,5 +126,5 @@ describe('Life game view', function() {
 
         expect(getCountOfSelectedCells(grid)).toBe(0);
     });
-    
+
 });
