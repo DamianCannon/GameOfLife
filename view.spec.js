@@ -5,19 +5,19 @@ describe('Life game view', function () {
 
         //<table id='grid'></table>
         var table = document.createElement('table');
-        table.setAttribute('id', 'grid');
+        table.setAttribute('id', 'CGLGrid');
 
         //<button id='start'>Start</button>
         var start = document.createElement('button');
-        start.setAttribute('id', 'start');
+        start.setAttribute('id', 'CGLStart');
 
         //<button id='stop'>Stop</button>
         var stop = document.createElement('button');
-        stop.setAttribute('id', 'stop');
+        stop.setAttribute('id', 'CGLStop');
 
         //<button id='clear'>Clear</button>
         var clear = document.createElement('button');
-        clear.setAttribute('id', 'clear');
+        clear.setAttribute('id', 'CGLClear');
 
         doc = document.createDocumentFragment();
         doc.appendChild(table);
@@ -61,7 +61,7 @@ describe('Life game view', function () {
         var doc = initialiseDocument();
         view.init(doc);
 
-        var table = doc.querySelector('#grid');
+        var table = doc.querySelector('#CGLGrid');
 
         expect(table.rows.length).toBe(12);
         expect(table.rows[0].cells.length).toBe(12);
@@ -72,7 +72,7 @@ describe('Life game view', function () {
         var doc = initialiseDocument();
         view.init(doc);
 
-        var table = doc.querySelector('#grid');
+        var table = doc.querySelector('#CGLGrid');
         var grid = convertTableIntoArray(table);
 
         expect(getCountOfSelectedCells(grid)).toBe(0);
@@ -84,7 +84,7 @@ describe('Life game view', function () {
         view.init(doc);
 
         spyOn(Game.model, 'newStateForGrid').and.callThrough();
-        var button = doc.querySelector('#start');
+        var button = doc.querySelector('#CGLStart');
         button.click();
 
         expect(Game.model.newStateForGrid).toHaveBeenCalled();
@@ -95,12 +95,12 @@ describe('Life game view', function () {
         var doc = initialiseDocument();
         view.init(doc);
 
-        var table = doc.querySelector('#grid');
+        var table = doc.querySelector('#CGLGrid');
         table.rows[3].cells[3].children[0].checked = true;
         table.rows[4].cells[3].children[0].checked = true;
         table.rows[5].cells[3].children[0].checked = true;
 
-        var startbutton = doc.querySelector('#start');
+        var startbutton = doc.querySelector('#CGLStart');
         startbutton.click();
 
         expect(table.rows[3].cells[3].children[0].checked).toBeFalsy();
@@ -115,12 +115,12 @@ describe('Life game view', function () {
         var doc = initialiseDocument();
         view.init(doc);
 
-        var table = doc.querySelector('#grid');
+        var table = doc.querySelector('#CGLGrid');
         table.rows[3].cells[3].children[0].checked = true;
         table.rows[4].cells[3].children[0].checked = true;
         table.rows[5].cells[3].children[0].checked = true;
 
-        var clearbutton = doc.querySelector('#clear');
+        var clearbutton = doc.querySelector('#CGLClear');
         clearbutton.click();
         var grid = convertTableIntoArray(table);
 

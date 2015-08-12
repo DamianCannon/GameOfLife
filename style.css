@@ -1,31 +1,25 @@
-* {
-    padding: 0;
-    margin: 0;
-}
-
-body {
+#CGL {
     text-align: center;
     font-family: sans-serif;
 }
-
-h1 {
+#CGL h1 {
     margin: .5em 0 1em;
 }
-
-h2 {
+#CGL h2 {
     margin: 1em 0 0.5em;
 }
-
-#grid {
+#CGL #CGLGrid {
     margin: 1em auto 0;
     border-collapse: collapse;
 }
-
-#grid td {
+#CGL #CGLGrid td {
+    padding: 0;
+    margin: 0;
     border: 1px solid gray;
 }
-
-#grid input[type='checkbox'] {
+#CGL #CGLGrid input[type='checkbox'] {
+    padding: 0;
+    margin: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -33,50 +27,41 @@ h2 {
     width: 30px;
     height: 30px;
     border: 0;
-}
-
-#grid input[type='checkbox']:checked {
-    background: black;
-    animation: birth 500ms;
-}
-
-#grid input[type='checkbox'] {
     background: white;
-    animation: death 250ms;
+    animation: CGLDeath 250ms;
 }
-
-@keyframes birth {
-    50% {
-        background: green;
-    }
+#CGL #CGLGrid input[type='checkbox']:checked {
+    background: black;
+    animation: CGLBirth 500ms;
 }
-
-@keyframes death {
-    0% {
-        background: rgba(184,0,0,.5);
-    }
-}
-
-button {
+#CGL button {
     padding: .4em .6em;
-    border: 1px solid rgba(0,0,0,.2);
+    border: 1px solid rgba(0, 0, 0, .2);
     border-radius: .3em;
-    box-shadow: 0 1px hsla(0,0%,100%,.7) inset, 0 .15em .1em -.1em rgba(0,0,0,.3);
-    background: linear-gradient(hsla(0,0%,100%,.3), hsla(0,0%,100%,0)) hsl(80,80%,35%);
+    box-shadow: 0 1px hsla(0, 0%, 100%, .7) inset, 0 .15em .1em -.1em rgba(0, 0, 0, .3);
+    background: linear-gradient(hsla(0, 0%, 100%, .3), hsla(0, 0%, 100%, 0)) hsl(80, 80%, 35%);
     color: white;
-    text-shadow: 0 -.05em .05em rgba(0,0,0,.3);
+    text-shadow: 0 -.05em .05em rgba(0, 0, 0, .3);
     font: inherit;
     font-weight: bold;
     outline: none;
     cursor: pointer;
 }
-
-button:enabled:active {
+#CGL button:enabled:active {
     background-image: none;
-    box-shadow: 0 .1em .3em rgba(0,0,0,.5) inset;
+    box-shadow: 0 .1em .3em rgba(0, 0, 0, .5) inset;
 }
-
-button:disabled {
-    background-color: hsl(80,20%,40%);
+#CGL button:disabled {
+    background-color: hsl(80, 20%, 40%);
     cursor: not-allowed;
+}
+@keyframes CGLBirth {
+    50% {
+        background: green;
+    }
+}
+@keyframes CGLDeath {
+    0% {
+        background: rgba(184, 0, 0, .5);
+    }
 }

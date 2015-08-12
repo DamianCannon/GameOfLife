@@ -85,11 +85,11 @@ Game.view = {
     init: function (doc) {
         var me = this;
         var size = 12;
-        var table = doc.querySelector('#grid');
+        var table = doc.querySelector('#CGLGrid');
         me.buttons = {
-            start: doc.querySelector('#start'),
-            stop: doc.querySelector('#stop'),
-            clear: doc.querySelector('#clear')
+            start: doc.querySelector('#CGLStart'),
+            stop: doc.querySelector('#CGLStop'),
+            clear: doc.querySelector('#CGLClear')
         };
 
         if (table !== null) {
